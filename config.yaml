@@ -1,0 +1,29 @@
+storage: /verdaccio/storage
+store:
+  minio:
+    port: 9100
+    endPoint: 192.168.1.1
+    accessKey: accessKey
+    secretKey: secretKey
+    useSSL: false
+    bucket: verdaccio
+    retries: 3
+    delay: 50
+  offline-storage:
+auth:
+  htpasswd:
+    file: ./htpasswd
+uplinks:
+  npmjs:
+    url: https://registry.npm.taobao.org/
+packages:
+  '@*/*':
+    access: $all
+    publish: $authenticated
+    proxy: npmjs
+  '**':
+    access: $all
+    proxy: npmjs
+logs:
+  - {type: stdout, format: pretty, level: http}
+offline: true
